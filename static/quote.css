@@ -1,0 +1,10 @@
+.form-quote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+}
+
+table {
+    max-width: 20rem;
+}

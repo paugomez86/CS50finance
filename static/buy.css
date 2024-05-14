@@ -1,0 +1,33 @@
+.form-buy {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-buy > div {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.form-buy input[name="shares"] {
+    flex: 1 1 10rem;
+}
+
+.form-buy button[type="submit"] {
+    flex: 1 1 5rem;
+    padding-inline: 2rem;
+}
+
+table {
+    width: min(90%, 35rem);
+}
+
+
+table tbody tr {
+    border-bottom: 1px solid var(--clr-grey80);
+}
+
+table tbody:last-of-type tr{
+    border-bottom: none;
+}

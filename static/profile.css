@@ -1,0 +1,246 @@
+@property --clr-gradient-grey {
+    syntax: '<color>';
+    initial-value: hsl(0, 0%, 100%);
+    inherits: false;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h4 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+h5 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+figure {
+    display: block;
+    margin: 0;
+}
+
+figure.hidden {
+    display: none;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    width: min(90%, 30rem);
+    padding-block: .8rem 0;
+    border: 1px solid var(--clr-grey80);
+    border-radius: .7rem;
+    overflow: hidden;
+}
+
+.box > h4 {
+    border-bottom: 1px solid var(--clr-grey80);
+    text-align: left;
+    padding-block: 1rem;
+    padding-inline: 1.5rem;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--clr-grey80);
+}
+
+section > * {
+    padding-inline: 1.5rem;
+}
+
+section > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, var(--clr-gradient-grey) 0%, var(--clr-white) 100%);
+    padding-block: 1rem;
+    cursor: pointer;
+    transition: --clr-gradient-grey .3s;
+}
+
+section > div:hover {
+    --clr-gradient-grey: hsl(0, 0%, 95%);
+
+    transition: --clr-gradient-grey .3s;
+}
+
+section:last-child {
+    border: 0;
+}
+
+.arrow {
+    width: .6rem;
+    height: .6rem;
+    border-bottom: 1px solid var(--clr-black);
+    border-right: 1px solid var(--clr-black);
+    transform: rotate(-45deg);
+    transition: transform 300ms;
+}
+
+
+/* Forms and input fields */
+.form-change-password,
+.form-add-funds {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    max-height: 0;
+    opacity: 0;
+    padding-block: 0;
+    pointer-events: none;
+    transition: opacity 300ms, max-height 300ms, padding-block 300ms;
+    overflow: hidden;
+}
+
+.form-change-password input,
+.form-add-funds input {
+    position: relative;
+    width: 100%;
+    padding: .2rem .6rem;
+    line-height: .9rem;
+    font-size: .9rem;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--clr-lightblue);
+}
+
+
+/* Underline effect when focus on input */
+.form-change-password > div,
+.form-add-funds > div {
+    position: relative;
+    width: 95%;
+}
+
+.form-change-password > div::after,
+.form-add-funds > div::after {
+    content:'';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: .2rem;
+    background: var(--clr-lightblue);
+    border-radius: .2rem;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms;
+}
+
+.form-add-funds > div::after {
+    bottom: -.15rem;
+}
+
+.form-change-password > div:has(input:active)::after,
+.form-change-password > div:has(input:focus)::after,
+.form-add-funds > div:has(input:active)::after,
+.form-add-funds > div:has(input:focus)::after {
+    transform: scaleX(1);
+    transition: transform 300ms;
+}
+
+.form-change-password input:focus,
+.form-change-password input:active,
+.form-add-funds input:focus,
+.form-add-funds input:active {
+    outline: none;
+}
+
+
+/* Placeholders for input fields and focus effect */
+.form-change-password > div > span,
+.form-add-funds > div > span {
+    position: absolute;
+    left: .6rem;
+    top: .2rem;
+    font-size: .9rem;
+    color: var(--clr-grey40);
+    pointer-events: none;
+    opacity: 1;
+    transition: transform 300ms, opacity 300ms;
+}
+
+.form-change-password input:focus ~ span,
+.form-add-funds input:focus ~ span,
+.form-change-password input:valid ~ span,
+.form-add-funds input:valid ~ span
+{
+    transform: translateX(1rem);
+    opacity: 0;
+    transition: transform 300ms, opacity 300ms;
+}
+
+.form-add-funds > div {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--clr-lightblue);
+}
+
+.form-add-funds h5 {
+    font-size: .9rem;
+    line-height: 1.2rem;
+    flex-basis: 4rem;
+    font-weight: 500;
+}
+
+.form-add-funds input {
+    padding-left: 0;
+    border-bottom: none;
+}
+
+.form-add-funds > div > span {
+    left: 3.6rem;
+}
+
+/* Submit buttons */
+button[type="submit"] {
+    padding: .2rem 1rem;
+    margin-left: .5rem;
+    background: var(--clr-blue);
+    color: var(--clr-white);
+    font-size: .9rem;
+    border: 2px solid var(--clr-blue);
+    border-radius: .3rem;
+    transition: background 300ms, border 300ms;
+}
+
+button[type="submit"]:hover {
+    background: var(--clr-darkblue);
+    border: 2px solid var(--clr-darkblue);
+    transition: background 300ms, border 300ms;
+}
+
+
+/* Form expanded */
+section.expanded .arrow {
+    transform: rotate(45deg);
+    transition: transform 300ms;
+}
+
+section.expanded .form-change-password,
+section.expanded .form-add-funds {
+    opacity: 1;
+    pointer-events: all;
+    padding-block: 1rem 2rem;
+    max-height: 20rem;
+    transition: opacity 300ms, max-height 300ms, padding-block 300ms;
+}
+
+.form-change-password .w-auto,
+.form-add-funds .w-auto {
+    min-width: 95%;
+}

@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block style %}
+    <link href="/static/buy.css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <form class="form-buy" action="/buy" method="post">
+        <input required autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text" id="form-symbol">
+        <div>
+            <input required autocomplete="off" class="form-control" name="shares" placeholder="Shares" type="text" id="form-shares">
+            <button class="btn btn-primary px-3" type="submit" id="btn">Buy</button>
+        </div>
+    </form>
+    <table class="table-quote">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Current quote</th>
+                <th>Amount</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="symbol"><span id="span-symbol">-</span></td>
+                <td><span id="span-price">-</span></td>
+                <td><span id="span-shares">-</span></td>
+                <td><span id="span-total">-</span></td>
+            </tr>
+        </tbody>
+        <tr class="funds">
+            <th></th>
+            <th colspan="2">Funds:</th>
+            <th>{{ funds }}</th>
+        </tr>
+    </table>
+
+    <script>
+        const formSymbol = document.getElementById('form-symbol');
+        const formShares = document.getElementById('form-shares');
+        const spanSymbol = document.getElementById('span-symbol');
+        const spanPrice = document.getElementById('span-price');
+        const spanShares = document.getElementById('span-shares');
+        const spanTotal = document.getElementById('span-total');
+
+        var price;
+
+        // Listener for symbol input
+        formSymbol.addEventListener('input', async function() {
+            // Call the API
+            let response = await fetch('/look?q=' + formSymbol.value);
+            let quote = await response.json();
+            // If the symbol was not found, the json values are undefined and so it sets '-' to the table.
+            if (quote.symbol === undefined) {
+                spanSymbol.innerHTML = '-';
+                spanPrice.innerHTML = '-';
+                spanTotal.innerHTML = '-';
+                price = '-';
+            }
+            // If the symbol was found and the response was successful, sets values to the table and calls to calc total
+            else {
+                spanSymbol.innerHTML = quote.symbol;
+                spanPrice.innerHTML = '$' + quote.price;
+                price = quote.price;
+                calcTotal();
+            }
+        });
+
+        // Listener for shares input
+        formShares.addEventListener('input', (e) => {
+            // Rejects non numeric characters
+            if (!Number.isInteger(parseInt(e.data)) && (e.data != null)) {
+                formShares.value = formShares.value.substring(0, formShares.value.length -1);
+            } else {
+                // Sets value in table and calls to calculate total. If there's no value, it sets '-'
+                if (formShares.value == '')
+                {
+                    spanShares.innerHTML = '-'
+                    spanTotal.innerHTML = '-'
+                } else {
+                    spanShares.innerHTML = formShares.value;
+                    calcTotal();
+                }
+            }
+        });
+
+        function calcTotal() {
+            // It ensures values (symbol, price and shares) are correct and calculates the total amount
+            total = spanShares.innerHTML * price;
+            if (Number.isNaN(total)) {
+                spanTotal.innerHTML = '-';
+            } else {
+                spanTotal.innerHTML = '$' + total.toFixed(2);
+            }
+        }
+    </script>
+{% endblock %}

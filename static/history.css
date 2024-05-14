@@ -1,0 +1,15 @@
+table {
+    width: min(95%, 50rem);
+}
+
+table th:nth-child(5) {
+    min-width: 7rem;
+}
+
+table tbody tr {
+    border-bottom: 1px solid var(--clr-grey80);
+}
+
+table tbody:last-of-type tr{
+    border-bottom: none;
+}

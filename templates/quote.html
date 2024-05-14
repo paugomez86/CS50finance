@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block style %}
+    <link href="/static/quote.css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <form class="form-quote" action="/quote" method="post">
+        <input required autocomplete="off" autofocus class="form-control w-auto" name="symbol" placeholder="Symbol" type="text">
+        <button class="btn btn-primary px-3" type="submit" id="btn">Look Up</button>
+    </form>
+    {% if quote %}
+    <table class="table-quote">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Quote</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th class="symbol">{{ quote.symbol }}</th>
+                <th>{{ quote.price }}</th>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock %}

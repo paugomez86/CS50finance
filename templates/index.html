@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block style %}
+    <link href="/static/index.css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    {% if list|length < 1 %}
+        <img alt="empty" class="apology border img-fluid" src="/static/empty.jpg" title="empty">
+        <h5>Your portfolio is empty.</h5>
+        <h6>You can buy some stock <a href="/buy">here</a>.</h6>
+    {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Change</th>
+                    <th>Shares</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in list %}
+                <tr>
+                    <td class="symbol">{{ item.symbol }}</td>
+                    <td><span class="span-change">{{ item.change }}</span></td>
+                    <td>{{ item.shares }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tr class="funds">
+                <td colspan="2"></td>
+                <td colspan="2">Funds:</td>
+                <th>{{ funds }}</th>
+            </tr>
+            <tr class="total">
+                <th colspan="2"></th>
+                <th colspan="2">TOTAL:</th>
+                <th>{{ total }}</th>
+            </tr>
+        </table>
+
+        <script>
+            const spanChangeList = document.querySelectorAll('.span-change');
+
+            window.addEventListener('load', (e) => {
+                    // Check if the percentage change of each row is positive or negative to change the color
+                    for(item of spanChangeList) {
+                        if (item.innerHTML == 0) {
+                            item.classList.add('equal');
+                        }
+                        if (item.innerHTML < 0) {
+                            item.classList.add('loss');
+                        }
+                        else if(item.innerHTML > 0) {
+                            item.classList.add('gain');
+                            // Adding + character
+                            item.innerHTML = "+" + item.innerHTML;
+                        }
+                        // Adding % character
+                        item.innerHTML = item.innerHTML + "%";
+                    };
+                });
+        </script>
+    {% endif %}
+{% endblock %}

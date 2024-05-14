@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block style %}
+    <link href="/static/profile.css" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="box">
+        <h4>Account options</h4>
+        <section>
+            <div class="section-tab">
+                <h5>Change password</h5>
+                <span class="arrow"></span>
+            </div>
+            <form id="form-change-password" class="form-change-password" action="/change_password" method="POST">
+                <div class="mb-3">
+                    <input required autocomplete="off" name="old" type="password">
+                    <span>Old password</span>
+                </div>
+                <div class="mb-3">
+                    <input required autocomplete="off" name="new" type="password">
+                    <span>New password</span>
+                </div>
+                <div class="mb-4">
+                    <input required autocomplete="off" name="confirmation" type="password">
+                    <span>Retype new password</span>
+                </div>
+                <button type="submit">Change password</button>
+            </form>
+        </section>
+        <section>
+            <div class="section-tab">
+                <h5>Add funds</h5>
+                <span class="arrow"></span>
+            </div>
+            <form id="form-add-funds" class="form-add-funds" action="/add_funds" method="POST">
+                <div class="mb-3">
+                    <h5>$ USD:</h5>
+                    <input required autocomplete="off" name="amount" type="text">
+                    <span>Amount</span>
+                </div>
+                <button type="submit">Add funds</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        const sectionTabs = document.querySelectorAll('.section-tab');
+        const amountInput = document.querySelector('#form-add-funds input');
+
+        // Listener to expand the accordion sections. Tabs are the first div inside each section
+        sectionTabs.forEach((tab) => {
+            tab.addEventListener('click', (e) => {
+                // Setting expanded class to the selected tab
+                e.currentTarget.parentNode.classList.toggle('expanded');
+            });
+        });
+
+        // The amount input field should reject non numeric characters
+        amountInput.addEventListener('input', (e) => {
+            if (!Number.isInteger(parseInt(e.data)) && (e.data != null)) {
+                amountInput.value = amountInput.value.substring(0, amountInput.value.length -1);
+            }
+        });
+    </script>
+{% endblock %}

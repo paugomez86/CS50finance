@@ -1,0 +1,24 @@
+table {
+    width: min(90%, 50rem);
+}
+
+table .funds {
+    font-weight: 600;
+    text-align: right !important;
+}
+
+table th {
+    width: auto;
+}
+
+table th:nth-child(1) {
+    width: 25%;
+}
+
+table tbody tr {
+    border-bottom: 1px solid var(--clr-grey80);
+}
+
+table tbody:last-of-type tr{
+    border-bottom: none;
+}

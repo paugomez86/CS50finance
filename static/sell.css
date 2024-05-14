@@ -1,0 +1,47 @@
+table {
+    width: min(90%, 50rem);
+}
+
+table th {
+    width: auto;
+}
+
+table th:nth-child(1) {
+    width: 25%;
+}
+
+.form-sell {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-sell > div {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.form-sell input[name="shares"] {
+    flex: 1 1 10rem;
+}
+
+.form-sell button[type="submit"] {
+    flex: 1 1 5rem;
+    padding-inline: 2rem;
+}
+
+select {
+    padding: .5rem;
+    border-radius: .3rem;
+    font-size: .95rem;
+    color: var(--clr-grey40);
+    border: 1px solid var(--clr-form-grey);
+    text-transform: uppercase;
+}
+
+select:focus {
+    outline: 4px solid var(--clr-lightblue);
+    border: 1px solid var(--clr-blue);
+    transition: outline 100ms, border 100ms;
+}
